@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}<title>Posts on My blog app</title>{% endblock %}
+{% block content %}
+  <h1>All posts</h1>
+  {% if post_list %}
+    <ul>
+    {% for post in post_list %}
+      <li><a href="{% url 'post-detail' post.pk %}">{{post.title}}</a> ({{post.pub_date}}) - {{post.blogger}}</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts was published yet</p>
+  {% endif %}
+{% endblock %}
