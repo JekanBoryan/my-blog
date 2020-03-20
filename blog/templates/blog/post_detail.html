@@ -9,4 +9,25 @@
   <p>Was published at <strong>{{post.pub_date}}</strong></p>
   <p>By <strong>{{post.blogger}}</strong></p>
   <p>{{post.text}}</p>
+  <br>
+  <div class="comments" style="padding: 0; margin-top: 20px; margin-left: 20px;">
+    <h3>Comments</h3>
+    {% if post.comment_set.count %}
+      <ul style="list-style: none;">
+        {% for comment in post.comment_set.all %}
+          <li><a href="{% url 'author-detail' comment.author.pk %}">{{comment.author}}</a> ({{comment.pub_date}}) <br>
+          <p>{{comment.text}}</p></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There are no comments for this post yet.</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'comment-create' post.pk %}">Add comment</a>
+    {% else %}
+      <p>To add comments you should <a href="{% url 'login' %}">log in</a></p>
+    {% endif %}
+  </div>
+
+
 {% endblock %}
