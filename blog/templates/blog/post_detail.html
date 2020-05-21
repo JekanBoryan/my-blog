@@ -23,9 +23,15 @@
       <p>There are no comments for this post yet.</p>
     {% endif %}
     {% if user.is_authenticated %}
-      <a href="{% url 'comment-create' post.pk %}">Add comment</a>
+      <form action="" method="post">
+        {% csrf_token %}
+        <table>
+          {{form.as_table}}
+        </table>
+        <input type="submit" value="Comment">
+      </form>
     {% else %}
-      <p>To add comments you should <a href="{% url 'login' %}">log in</a></p>
+      <p>Only registered users can comment posts.<a href="{% url 'login' %}"> Log in?</a></p>
     {% endif %}
   </div>
 
